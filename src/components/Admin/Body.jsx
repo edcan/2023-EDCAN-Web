@@ -1,27 +1,28 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import Data from "../../data/adminData"
+import Cookies from "js-cookie";
 
 const Parent = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: white;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 `
 
 const Child = styled.div`
   width: 800px;
   height: 300px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
+  justify-content: center;
 `
 
 const Title = styled.div`
-  padding-top: 160px;
   font-size: 34px;
   font-weight: 600;
   color: #425563;
@@ -31,66 +32,84 @@ const Desc = styled.div`
   padding-top: 16px;
   font-size: 16px;
   color: #98A4AE;
-`
-
-const DataBox = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
-  height: 110px;
-  box-sizing: border-box;
-  background-color: #F7F8F9;
-  color: white;
-  padding: 26px;
-  border-radius: 18px;
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 26px;
 `
 
-const SecondChild = styled.div`
-  width: 800px;
-  padding-bottom: 16px;
-  display: flex;
-  flex-direction: column;
+const BorderParent = styled.div`
+  width: 340px;
+  height: 56px;
 `
 
-const BigTxt = styled.div`
-  font-size: 22px;
+const Border = styled.textarea`
+  margin-top: 16px;
+  border-radius: 12px;
+  resize: none;
+  font-size: 15px;
+  width: 340px; 
+  padding-top: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-shadow: ${props => props.isError ? "inset 0 0 0 1px #FF7A7A" : "none"};
+  border: ${props => props.isError ? "1px solid #FF7A7A" : "1px solid #E3E6E8"};
+  height: 56px;
+  ::placeholder {
+    color: #98A4AE;
+  }
+  :active, :focus {
+    box-shadow: ${props => props.isError ? "inset 0 0 0 1px #FF7A7A" : "inset 0 0 0 1px #00A9CE"};
+    border: ${props => props.isError ? "1px solid #FF7A7A" : "1px solid #00A9CE"};
+    outline: none
+  }
+  @media (max-width: 650px) {
+    width: 340px;
+  }
+  font-family: "SUIT";
+  margin-bottom: 36px;
   color: #425563;
-  font-weight: 600;
+  transition: all 0.1s ease;
 `
 
-const SmallTxt = styled.div`
-  font-size: 16px;
-  margin-top: 10px;
-  color: gray;
-`
+const Body = ({ data, onChange, isTrue }) => {
 
-const Body = () => {
+  const [value, setValue] = useState()
+
+  const handleReturnOKChange = (newValue) => {
+    setValue(newValue)
+    isTrue(true);
+  };
+
+  useEffect(() => {
+    if (data) {
+      if (data.includes(value)) {
+        Cookies.set("auth", value);
+        onChange(true);
+      }
+    }
+    if (data.includes(Cookies.get("auth"))) {
+      onChange(true);
+    }
+  });
+
   return (
     <Parent>
       <Child>
         <Title>
-          EDCAN 관리자 페이지
+          EDCAN 관리자 인증
         </Title>
         <Desc>
-          포트폴리오, 동아리 부원 목록, EDUCAN 등을 수정할 수 있는 페이지입니다.
+          각자 지급받은 인증키를 입력하여 관리자를 인증해주세요.
         </Desc>
+        <BorderParent>
+          <Border
+            Placeholder="인증키 16자리를 입력해주세요"
+            value={value}
+            onChange={(event) => handleReturnOKChange(event.target.value)} 
+          />
+        </BorderParent>
       </Child>
-      <SecondChild>
-        {
-          Data.map(i => (
-            <DataBox item={i} key={i.id}>
-              <BigTxt onClick={() => console.log(i)}>
-                {i.name}
-              </BigTxt>
-              <SmallTxt>
-                {i.desc}
-              </SmallTxt>
-            </DataBox>
-          ))
-        }
-      </SecondChild>
     </Parent>
   )
 }

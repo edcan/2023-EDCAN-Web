@@ -14,7 +14,6 @@ function App() {
     {/* <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Main/>}/>
-        <Route path="/admin" element={<AdminPage/>}/>
         <Route path="/portfolio" element={<PortFolio/>}/>
         <Route path="/educan" element={<Educan/>}/>
         <Route path="/join" element={<Join/>}/>
@@ -24,6 +23,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Join/>}/>
+        <Route path="/scoreform" element={<AdminPage/>}/>
         <Route path="*" element={<Join/>}/>
       </Routes>
     </BrowserRouter>

@@ -1,8 +1,12 @@
 import React from "react"
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import edcanSymbol2 from ".././assets/blackSymbol.png"
 import Body from "../components/Admin/Body"
+import Main from "../components/Admin/Main"
+
+import { firestore, storage } from "../index"
 
 const ImageSet = `
   background-size: 100%;
@@ -38,6 +42,33 @@ const Header = styled.div`
 
 const Admin = () => {
 
+  const [certify, setCertify] = useState(false)
+  const [keys, setKeys] = useState([]);
+
+  const db = firestore;
+  const Ref = db.collection("keys").doc("value");
+
+  useEffect(() => {
+    Ref.get().then((doc) => {
+      if (doc.exists) {
+        const keyData = doc.data();
+        const keyArray = Object.values(keyData).slice(0, 8);
+        setKeys(keyArray);
+      }
+      else {
+        console.log("No such document!");
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    });
+  });
+
+  const handleReturnOKChange = (newValue) => {
+    if (newValue === true) {
+      setCertify(true);
+    }
+  };
+
   return (
     <div>
       <Header>
@@ -45,7 +76,13 @@ const Admin = () => {
           <ImageBox />
         </HeaderChild>
       </Header>
-      <Body/>
+      {certify ?
+        (
+          <Main/>
+        ) : (
+          <Body data={keys} onChange={handleReturnOKChange} />
+        )
+      }
     </div>
   );
 }
