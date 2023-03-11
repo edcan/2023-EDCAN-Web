@@ -57,6 +57,7 @@ const Border = styled.textarea`
   margin-bottom: 36px;
   line-height: ${props => props.lineHeight};
   color: #425563;
+  transition: all 0.1s ease;
 `
 
 const Parent = styled.div`

@@ -38,12 +38,14 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99;
 `
 
 const Admin = () => {
 
   const [certify, setCertify] = useState(false)
   const [keys, setKeys] = useState([]);
+  const [member, setMember] = useState([]);
 
   const db = firestore;
   const Ref = db.collection("keys").doc("value");
@@ -53,15 +55,14 @@ const Admin = () => {
       if (doc.exists) {
         const keyData = doc.data();
         const keyArray = Object.values(keyData).slice(0, 8);
+        console.log(keyData[0])
         setKeys(keyArray);
       }
       else {
-        console.log("No such document!");
+        console.log("데이터 읽기 오류");
       }
-    }).catch((error) => {
-      console.log("Error getting document:", error);
-    });
-  });
+    })
+  }, []);
 
   const handleReturnOKChange = (newValue) => {
     if (newValue === true) {

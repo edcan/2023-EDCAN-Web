@@ -100,7 +100,7 @@ const Body = ({ data, onChange, isTrue }) => {
           EDCAN 관리자 인증
         </Title>
         <Desc>
-          각자 지급받은 인증키를 입력하여 관리자를 인증해주세요.
+          각자 인증키를 입력하여 관리자를 인증해주세요.
         </Desc>
         <BorderParent>
           <Border
