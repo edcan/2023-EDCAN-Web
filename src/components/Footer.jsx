@@ -129,7 +129,7 @@ const Footer = () => {
             <Image />
           </Align>
           <Address>
-            <a href="/admin">서</a>울 용산구 원효로97길 33-4 <br/> 선린인터넷고등학교 421실 <Place/>
+            <a href="/scoreform">서</a>울 용산구 원효로97길 33-4 <br/> 선린인터넷고등학교 421실 <Place/>
           </Address>
         </FirstMenu>
 
