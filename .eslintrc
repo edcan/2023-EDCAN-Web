@@ -1,0 +1,7 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "quotes": ["error", "double", { "avoidEscape": true }],
+    "indent": ["error", 2]
+  }
+}
