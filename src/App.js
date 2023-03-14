@@ -22,9 +22,10 @@ function App() {
     </BrowserRouter> */}
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Join/>}/>
+        <Route exact path="/" element={<AdminPage/>}/>
         <Route path="/scoreform" element={<AdminPage/>}/>
-        <Route path="*" element={<Join/>}/>
+        <Route path="/form" element={<Join/>}/>
+        <Route path="*" element={<AdminPage/>}/>
       </Routes>
     </BrowserRouter>
   </div>

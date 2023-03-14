@@ -54,7 +54,7 @@ const Admin = () => {
     Ref.get().then((doc) => {
       if (doc.exists) {
         const keyData = doc.data();
-        const keyArray = Object.values(keyData).slice(0, 8);
+        const keyArray = Object.values(keyData).slice(0, 10);
         console.log(keyData[0])
         setKeys(keyArray);
       }
@@ -79,7 +79,7 @@ const Admin = () => {
       </Header>
       {certify ?
         (
-          <Main/>
+          <Main data={keys} onChange={handleReturnOKChange} />
         ) : (
           <Body data={keys} onChange={handleReturnOKChange} />
         )

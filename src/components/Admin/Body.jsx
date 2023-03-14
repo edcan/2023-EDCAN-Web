@@ -75,6 +75,18 @@ const Border = styled.textarea`
 const Body = ({ data, onChange, isTrue }) => {
 
   const [value, setValue] = useState()
+  const adminName = [
+    "표한빈",
+    "강민성",
+    "배진영",
+    "박준영",
+    "백시현",
+    "이하람",
+    "장준서",
+    "김성식",
+    "류지성",
+    "박희찬"
+  ]
 
   const handleReturnOKChange = (newValue) => {
     setValue(newValue)
@@ -83,13 +95,15 @@ const Body = ({ data, onChange, isTrue }) => {
 
   useEffect(() => {
     if (data) {
-      if (data.includes(value)) {
-        Cookies.set("auth", value);
+      if (data.includes(Cookies.get("auth"))) {
         onChange(true);
       }
-    }
-    if (data.includes(Cookies.get("auth"))) {
-      onChange(true);
+      if (data.includes(value)) {
+        Cookies.set("auth", value);
+        Cookies.set("adminName", adminName[data.indexOf(value)])
+        //
+        onChange(true);
+      }
     }
   });
 
