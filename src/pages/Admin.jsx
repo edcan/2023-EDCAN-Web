@@ -55,7 +55,6 @@ const Admin = () => {
       if (doc.exists) {
         const keyData = doc.data();
         const keyArray = Object.values(keyData).slice(0, 10);
-        console.log(keyData[0])
         setKeys(keyArray);
       }
       else {
